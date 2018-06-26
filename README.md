@@ -49,6 +49,41 @@
   h1 = (Sunny, ?, ?, Strong, ?, ?), h2 = (Sunny, ?, ?, ?, ?, ?)  
   ==> h2 *>=g* h1  
 
-## Candidate Elimination Algorithm
+## Compact Representation for Version Spaces
+ - General Boundary G(H,D): Set of maximally general members of H consistent with D
+ - Specific Boundary S(H,D): set of minimally general (i.e., maximally specific) members of H consistent with D
+ 
+ ![image](https://user-images.githubusercontent.com/26705935/41898243-6cf517fa-7964-11e8-918c-25a56c00a738.png)
 
-- 
+## Candidate Elimination Algorithm
+ - Initialize G to the set of maximally general hypotheses in H
+ - Initialize S to the set of maximally specific hypotheses in H
+ - For each training example d, do 
+ 
+### (1) Positive input
+ - If d is positive example
+   - Remove from G any hypothesis inconsistent with d
+   - For each hypothesis s in S that is not consistent with d
+     - Remove s from S
+     - Add to S all minimal generalizations h of s  such that
+       h is consistent with d, and some member of G is more general than h 
+     - Remove from S any hypothesis that is more general than another hypothesis in S
+     
+     
+ - yes 가 주어지면 : S update
+ - 공통되는 부분을 남겨놓고, 나머지 attribute은 ? 로 놓기
+ - S update하고, 기존 G 중에 S랑 맞지 않는 hypothesis는 빼버리기
+
+
+### (2) Negative input
+ - If d is negative example 
+   - Remove from S any hypothesis inconsistent with d
+   - For each hypothesis g in G that is not consistent with d
+     - Remove g from G
+     - Add to G all minimal specializations h of g  such that
+       h is consistent with d, and some member of S is more specific than h
+     - Remove from G any hypothesis that is less general than another hypothesis in G
+     
+ - no 가 주어지면 : G update
+ - S랑 data랑 비교, S랑 no랑 같지 않은 attribute에 대해, S의 attribute value 써서 hypothesis 만들기 : 하나.
+
